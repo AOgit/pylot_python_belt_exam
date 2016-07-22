@@ -1,0 +1,95 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>Quotes</title>
+	<style>
+	#first {
+		display:inline-block;
+		width:25%;
+		height:600px;
+	}
+	#second {
+		display:inline-block;
+		width:25%;
+		height:300px;
+		vertical-align: top;
+		margin-left:30px;
+	}
+	#third {
+		margin-top:30px;
+		width:30%;
+		position: relative;
+		left:430px;
+		bottom:275px;
+	}
+	#qq_box {
+		width:90%;
+		height:600px;
+		border: 1px solid black;
+		overflow: scroll;
+	}
+	#one_qq_box {
+		text-align:center;
+		border: 1px solid black;
+		width: 90%;
+		position:relative;
+		left:10px; 
+	}
+	#fav_quotes {
+		width:90%;
+		height:300px;
+		border: 1px solid black;
+		overflow: scroll;
+	}
+	#one_fav_quotes {
+		text-align:center;
+		border: 1px solid black;
+		width: 90%;
+		position:relative;
+		left:10px;
+	}
+	</style>
+</head>
+<body>
+	<a href='/logout'>Logout</a>
+	<h1>Welcome {{ name }}</h1>
+	<div id='first'>
+		<h2>Quotable Quotes</h2>
+		<div id='qq_box'>
+			{% for quote in all_quotes %}
+			<div id='one_qq_box'>
+			<form action='/add_to_favorites/{{ quote.id }}' method='post'>
+				<p>{{ quote.quoted_by }}: {{ quote.quote }}</p>
+				<p>Posted by <a href='/profile/{{ quote.id }}'>{{ quote.name }}</a></p>
+				<input type='submit' value='Add to My List'>
+			</form>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div id='second'>
+		<h2>Your Favorites</h2>
+		<div id='fav_quotes'>
+			{% for myfav in my_favorites %}
+			<div id='one_fav_quotes'>
+			<form action='/remove/{{ myfav.id }}' method='post'>
+				<p>{{ myfav.quoted_by }}: {{ myfav.quote }}</p>
+				<p>Posted by: <a href='/profile/{{ myfav.id }}'>{{ myfav.name }}</a></p>
+				<input type='submit' value='Remove From My List'>
+			</form> 
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div id='third'>
+		<h2>Contribute a Quote</h2>
+		<p>Quoted by:</p>
+		<form action='/add' method='post'>
+			<input type='text' name='quoted_by'>
+			<p>Message:</p>
+			<textarea name='message' cols='50' rows='5'></textarea>
+			<input type='submit' value='Submit'>
+		</form>
+	</div>
+</body>
+</html>

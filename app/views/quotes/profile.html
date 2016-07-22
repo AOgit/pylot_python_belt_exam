@@ -1,0 +1,15 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>Quotes</title>
+</head>
+<body>
+	<a href='/home'>Dashboard</a>
+	<a href='/'>Logout</a>
+	<h1>Posts by {{ name }}</h1>
+	<h2>Count: {{ count }}</h2>
+	{% for one_quote in quotes %}
+		<p>{{ one_quote.quoted_by }}: {{ one_quote.quote }}</p>
+	{% endfor %}
+</body>
+</html>
